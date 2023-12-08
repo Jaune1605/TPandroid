@@ -1,24 +1,27 @@
 package com.example.pajol
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_product.view.*
+import com.bumptech.glide.Glide
+import com.example.pajol.databinding.ItemProductBinding
 
 class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ProductViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
-            itemView.productName.text = product.title
-            itemView.productPrice.text = "€${product.price}"
-            // Vous pouvez également charger l'image du produit ici en utilisant une bibliothèque comme Glide ou Picasso
+            binding.productName.text = product.title
+            binding.productPrice.text = "€${product.price}"
+            // Ajoutez ici la logique pour charger l'image si nécessaire
+            Glide.with(binding.root.context)
+                .load(product.image)
+                .into(binding.productImageView)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
-        return ProductViewHolder(view)
+        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ProductViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {

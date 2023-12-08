@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pajol</string>
+    <string name="product_image">Image du produit</string>
 </resources>
