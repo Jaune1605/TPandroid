@@ -2,19 +2,23 @@ package com.example.pajol
 
 import RetrofitViewModelFactory
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.pajol.databinding.ActivityMainBinding
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: RetrofitViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val apiService = Retrofit.Builder()
             .baseUrl("https://fakestoreapi.com/")
@@ -22,17 +26,37 @@ class MainActivity : AppCompatActivity() {
             .build()
             .create(ApiService::class.java)
 
-        viewModel = ViewModelProvider(this, RetrofitViewModelFactory(apiService)).get(RetrofitViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            RetrofitViewModelFactory(apiService)
+        ).get(RetrofitViewModel::class.java)
 
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-
+        // Configuration du RecyclerView
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         viewModel.data.observe(this, { products ->
-            // Création et configuration de l'adaptateur avec la liste des produits
             val adapter = ProductAdapter(products)
-            recyclerView.adapter = adapter
+            binding.recyclerView.adapter = adapter
         })
+
+        // Charger les catégories
+        viewModel.categories.observe(this, { categories ->
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.categorySpinner.adapter = adapter
+        })
+
+        binding.categorySpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                    val selectedCategory = parent.getItemAtPosition(position).toString()
+                    viewModel.getProductsByCategory(selectedCategory)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // Optionnel : gérer aucun choix sélectionné
+                }
+            }
     }
 }
+
