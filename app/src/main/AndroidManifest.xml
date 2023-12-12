@@ -16,6 +16,8 @@
         android:theme="@style/Theme.Pajol"
         tools:targetApi="31">
 
+        <activity android:name=".CartActivity"/>
+
         <activity
             android:name=".ProductDetailActivity"
             android:exported="false" />
