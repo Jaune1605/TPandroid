@@ -16,7 +16,7 @@
             android:id="@+id/cartItemImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitCenter" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -33,12 +33,51 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/cartItemPrice"
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prix"
-                android:textSize="14sp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/cartItemPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prix"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp"/>
+                <Button
+                    android:id="@+id/decreaseQuantityButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/rounded_button"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/cartItemQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <Button
+                    android:id="@+id/increaseQuantityButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/rounded_button"
+                    android:text="+"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
