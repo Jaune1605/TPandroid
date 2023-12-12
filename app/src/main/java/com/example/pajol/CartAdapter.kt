@@ -1,23 +1,31 @@
 package com.example.pajol
 
+import CartManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 
-class CartAdapter(private val cartItems: List<Product>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(private val cartItems: MutableList<Product>, private val cartManager: CartManager) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productName: TextView = view.findViewById(R.id.cartItemTitle)
         val productPrice: TextView = view.findViewById(R.id.cartItemPrice)
         val productImage: ImageView = view.findViewById(R.id.cartItemImage)
+        val increaseQuantityButton: Button = view.findViewById(R.id.increaseQuantityButton)
+        val decreaseQuantityButton: Button = view.findViewById(R.id.decreaseQuantityButton)
+        val productQuantity: TextView = view.findViewById(R.id.cartItemQuantity)
+
 
         fun bind(product: Product) {
             productName.text = product.title
             productPrice.text = "€${product.price}"
+            productQuantity.text = product.quantity.toString()
+
             // Utilisez Glide ou une autre bibliothèque pour charger l'image
             Glide.with(itemView.context)
                 .load(product.image)
@@ -31,7 +39,26 @@ class CartAdapter(private val cartItems: List<Product>) : RecyclerView.Adapter<C
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        holder.bind(cartItems[position])
+        val item = cartItems[position]
+        holder.bind(item)
+
+        holder.increaseQuantityButton.setOnClickListener {
+            item.quantity++
+            notifyItemChanged(position)
+            cartManager.updateItem(item)
+        }
+
+        holder.decreaseQuantityButton.setOnClickListener {
+            if (item.quantity > 1) {
+                item.quantity--
+                notifyItemChanged(position)
+                cartManager.updateItem(item)
+            } else {
+                cartItems.removeAt(position)
+                notifyItemRemoved(position)
+                cartManager.removeItem(item)
+            }
+        }
     }
 
     override fun getItemCount() = cartItems.size

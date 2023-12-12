@@ -13,6 +13,8 @@ import android.content.Intent
 class CartActivity : AppCompatActivity() {
     private lateinit var cartRecyclerView: RecyclerView
     private lateinit var cartAdapter: CartAdapter
+    private lateinit var cartManager: CartManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
@@ -25,13 +27,11 @@ class CartActivity : AppCompatActivity() {
         cartRecyclerView = findViewById(R.id.cartRecyclerView)
 
 
-
-        val cartManager = CartManager(this)
-        val cartItems = cartManager.getCartItems()
-        cartAdapter = CartAdapter(cartItems)
+        cartManager = CartManager(this)
+        val cartItems = cartManager.getCartItems().toMutableList() // Convertir en MutableList
+        cartAdapter = CartAdapter(cartItems, cartManager) // Passer cartManager
         cartRecyclerView.adapter = cartAdapter
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
