@@ -5,16 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 class CartAdapter(private val cartItems: List<Product>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val productName: TextView = view.findViewById(R.id.productName) // Assurez-vous que ces ID existent dans votre layout item_cart.xml
-        val productPrice: TextView = view.findViewById(R.id.productPrice)
+        val productName: TextView = view.findViewById(R.id.cartItemTitle)
+        val productPrice: TextView = view.findViewById(R.id.cartItemPrice)
+        val productImage: ImageView = view.findViewById(R.id.cartItemImage)
 
         fun bind(product: Product) {
             productName.text = product.title
             productPrice.text = "€${product.price}"
+            // Utilisez Glide ou une autre bibliothèque pour charger l'image
+            Glide.with(itemView.context)
+                .load(product.image)
+                .into(productImage)
         }
     }
 

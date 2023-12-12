@@ -1,11 +1,13 @@
 package com.example.pajol
 
+import CartManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import android.content.Intent
 
 
 class CartActivity : AppCompatActivity() {
@@ -21,10 +23,15 @@ class CartActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = ""
         cartRecyclerView = findViewById(R.id.cartRecyclerView)
-        val cartItems = mutableListOf<Product>()
+
+
+
+        val cartManager = CartManager(this)
+        val cartItems = cartManager.getCartItems()
         cartAdapter = CartAdapter(cartItems)
         cartRecyclerView.adapter = cartAdapter
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

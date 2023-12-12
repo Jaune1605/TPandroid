@@ -1,5 +1,6 @@
 package com.example.pajol
 
+import CartManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -7,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import android.widget.Button
+import android.widget.Toast
+import android.content.Intent
+
 
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -35,6 +39,7 @@ class ProductDetailActivity : AppCompatActivity() {
         val addToCartButton: Button = findViewById(R.id.addToCartButton)
         addToCartButton.setOnClickListener {
             addToCart(product)
+            Toast.makeText(this, "${product.title} ajouté au panier", Toast.LENGTH_SHORT).show()
         }
         // Afficher les données du produit
         findViewById<TextView>(R.id.productName).text = productName
@@ -45,11 +50,14 @@ class ProductDetailActivity : AppCompatActivity() {
 
 
     }
-
     private fun addToCart(product: Product) {
-        cartItems.add(product)
-        // Afficher un message ou naviguer vers CartActivity
+        val cartManager = CartManager(this)
+        cartManager.addToCart(product)
+        Toast.makeText(this, "${product.title} ajouté au panier", Toast.LENGTH_SHORT).show()
     }
+
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Gérer le clic sur la flèche de retour
