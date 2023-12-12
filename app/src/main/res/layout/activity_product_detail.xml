@@ -48,6 +48,17 @@
             android:layout_marginTop="4dp"
             android:layout_below="@id/productName"
             android:background="@drawable/price_box_background"
-        android:padding="8dp"
-        android:textStyle="normal"/>
+            android:padding="8dp"
+            android:textStyle="normal"/>
+
+        <Button
+            android:id="@+id/addToCartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_to_cart"
+            android:layout_below="@id/productPrice"
+            android:layout_alignStart="@id/productPrice"
+            android:layout_marginTop="8dp" />
+
+
 </RelativeLayout>
