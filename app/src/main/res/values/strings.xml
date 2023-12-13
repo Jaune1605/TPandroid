@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Pajol</string>
     <string name="product_image">Image du produit</string>
+    <string name="fab_cart_description">Open cart</string>
+    <string name="add_to_cart">Add to cart</string>
+
 </resources>

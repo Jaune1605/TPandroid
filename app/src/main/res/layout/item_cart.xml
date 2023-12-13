@@ -1,0 +1,98 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/cartItemImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:id="@+id/cartItemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Titre du Produit"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="bottom">
+
+                <TextView
+                    android:id="@+id/cartItemPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Prix"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="bottom" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <Button
+                        android:id="@+id/decreaseQuantityButton"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/rounded_button"
+                        android:text="-"
+                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/cartItemQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+
+                    <Button
+                        android:id="@+id/increaseQuantityButton"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/rounded_button"
+                        android:text="+"
+                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
