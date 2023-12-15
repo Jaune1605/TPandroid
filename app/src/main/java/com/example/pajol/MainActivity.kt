@@ -2,9 +2,8 @@ package com.example.pajol
 
 import RetrofitViewModelFactory
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.view.LayoutInflater
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -40,23 +39,23 @@ class MainActivity : AppCompatActivity() {
         })
 
         // Charger les catégories
-        viewModel.categories.observe(this, { categories ->
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.categorySpinner.adapter = adapter
-        })
-
-        binding.categorySpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    val selectedCategory = parent.getItemAtPosition(position).toString()
-                    viewModel.getProductsByCategory(selectedCategory)
+        viewModel.categories.observe(this) { categories ->
+            val layoutInflater = LayoutInflater.from(this)
+            categories.forEach { category ->
+                val categoryButton = layoutInflater.inflate(
+                    R.layout.category_button,
+                    binding.categoriesLayout,
+                    false
+                ) as Button
+                categoryButton.text = category
+                categoryButton.setOnClickListener {
+                    // Gérer le clic sur la catégorie
+                    viewModel.getProductsByCategory(category)
                 }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // Optionnel : gérer aucun choix sélectionné
-                }
+                binding.categoriesLayout.addView(categoryButton)
             }
+        }
+
     }
 }
 
