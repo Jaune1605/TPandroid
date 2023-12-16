@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pajol.databinding.ActivityMainBinding
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.content.Intent
+
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: RetrofitViewModel
     private lateinit var binding: ActivityMainBinding
@@ -27,10 +30,18 @@ class MainActivity : AppCompatActivity() {
             .build()
             .create(ApiService::class.java)
 
-        viewModel = ViewModelProvider(
-            this,
-            RetrofitViewModelFactory(apiService)
-        ).get(RetrofitViewModel::class.java)
+
+        viewModel = ViewModelProvider(this, RetrofitViewModelFactory(apiService)).get(RetrofitViewModel::class.java)
+
+        val fabCart = findViewById<FloatingActionButton>(R.id.fab_cart)
+        fabCart.setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+
 
         // Configuration du RecyclerView
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
