@@ -1,17 +1,18 @@
 package com.example.pajol
 
 import RetrofitViewModelFactory
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pajol.databinding.ActivityMainBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: RetrofitViewModel
