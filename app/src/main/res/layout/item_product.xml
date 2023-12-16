@@ -34,5 +34,6 @@
             android:text="Prix"
             android:textSize="14sp"
             android:layout_marginTop="4dp"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
