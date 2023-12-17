@@ -32,9 +32,12 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, ProductDetailActivity::class.java)
+            intent.putExtra("PRODUCT_ID", product.id)
             intent.putExtra("PRODUCT_NAME", product.title)
             intent.putExtra("PRODUCT_PRICE", product.price)
             intent.putExtra("PRODUCT_IMAGE", product.image)
+            intent.putExtra("PRODUCT_CATEGORY", product.category)
+            intent.putExtra("PRODUCT_DESCRIPTION", product.description)
             context.startActivity(intent)
         }
     }
