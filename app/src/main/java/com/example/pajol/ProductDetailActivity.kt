@@ -32,9 +32,11 @@ class ProductDetailActivity : AppCompatActivity() {
         val productName = intent.getStringExtra("PRODUCT_NAME") ?: ""
         val productPrice = intent.getDoubleExtra("PRODUCT_PRICE", 0.0)
         val productImage = intent.getStringExtra("PRODUCT_IMAGE") ?: ""
+        val productCategory = intent.getStringExtra("PRODUCT_CATEGORY") ?: ""
+        val productDescription = intent.getStringExtra("PRODUCT_DESCRIPTION") ?: ""
 
         // Créer l'instance de Product
-        val product = Product(productId, productName, productPrice, productImage)
+        val product = Product(productId, productName, productPrice, productImage, productCategory, productDescription)
 
         val addToCartButton: Button = findViewById(R.id.addToCartButton)
         addToCartButton.setOnClickListener {
@@ -44,6 +46,9 @@ class ProductDetailActivity : AppCompatActivity() {
         // Afficher les données du produit
         findViewById<TextView>(R.id.productName).text = productName
         findViewById<TextView>(R.id.productPrice).text = "€$productPrice"
+        findViewById<TextView>(R.id.productCategory).text = productCategory
+        findViewById<TextView>(R.id.productDescription).text = productDescription
+
         Glide.with(this)
             .load(productImage)
             .into(findViewById(R.id.productImageView))

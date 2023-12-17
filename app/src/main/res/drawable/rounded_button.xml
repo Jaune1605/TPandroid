@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="8dp" />
-    <solid android:color="#333333" /> <!-- Couleur de fond des boutons -->
+    <solid android:color="@color/pink" /> <!-- Couleur de fond des boutons -->
 </shape>
